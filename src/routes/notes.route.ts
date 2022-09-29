@@ -1,19 +1,19 @@
 import express from 'express';
 import {noteValidator, idValidator}  from '../validators/notes.validators';
 import { noteCreateSchema, noteUpdateSchema } from '../schemas/notes.schemas';
-import * as noteService from '../services/notes.services';
+import * as noteControllers from '../controllers/notes.controllers';
 
 export const router = express.Router();
 
-router.get('/', noteService.getNotes);
-router.get('/stats', noteService.getStatistic);
-router.get('/:noteId', idValidator(), noteService.getNote);
+router.get('/', noteControllers.getNotes);
+router.get('/stats', noteControllers.getStatistic);
+router.get('/:noteId', idValidator(), noteControllers.getNote);
 
 router.post(
   '/', 
   express.json(),
   noteValidator(noteCreateSchema), 
-  noteService.createNote
+  noteControllers.createNote
 );
 
 router.patch(
@@ -21,7 +21,7 @@ router.patch(
   express.json(),
   noteValidator(noteUpdateSchema), 
   idValidator(),
-  noteService.editNote
+  noteControllers.editNote
   );
   
-  router.delete('/:noteId', idValidator(), noteService.removeNote);
+  router.delete('/:noteId', idValidator(), noteControllers.removeNote);
