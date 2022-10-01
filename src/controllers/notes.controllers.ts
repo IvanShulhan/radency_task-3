@@ -6,8 +6,6 @@ export const getNote = (req: express.Request, res: express.Response) => {
   const { noteId } = req.params;
   const note = findNote(noteId);
 
-  res.send(note);
-  
   if (!note) {
     res.sendStatus(404);
     return;
